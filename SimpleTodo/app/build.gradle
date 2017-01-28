@@ -26,5 +26,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'commons-io:commons-io:2.4'
+    compile 'com.facebook.stetho:stetho:1.4.1'
     testCompile 'junit:junit:4.12'
 }
