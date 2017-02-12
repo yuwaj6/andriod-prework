@@ -40,6 +40,5 @@ public class EditItemActivity extends AppCompatActivity {
         result.putExtra(MainActivity.EDIT_ITEM_POS, pos);
         setResult(Activity.RESULT_OK, result);
         finish();
-
     }
 }

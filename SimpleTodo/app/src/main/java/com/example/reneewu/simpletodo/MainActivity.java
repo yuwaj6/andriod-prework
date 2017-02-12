@@ -2,10 +2,10 @@ package com.example.reneewu.simpletodo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import org.apache.commons.io.FileUtils;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EditItemDialogFragment.EditItemDialogListener{
     ArrayList<todoItem> items;
     todoItemAdapter itemsAdapter;
     ListView lvItems;
@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Get all posts from database
         items = databaseHelper.getAllTodos();
-
         itemsAdapter = new todoItemAdapter(this, items);
         lvItems.setAdapter(itemsAdapter);
         setupListViewListener();
@@ -43,12 +42,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onAddItem(View v){
-        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
-        String itemText = etNewItem.getText().toString();
-        todoItem newItem = databaseHelper.addTodo(new todoItem(itemText));
+        //EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
+        //String itemText = etNewItem.getText().toString();
+        //todoItem newItem = databaseHelper.addTodo(new todoItem(itemText));
 
-        itemsAdapter.add(newItem);
-        etNewItem.setText("");
+        //itemsAdapter.add(newItem);
+        //etNewItem.setText("");
+
+        showEditDialog(new todoItem());
     }
 
     private void setupListViewListener(){
@@ -76,13 +77,17 @@ public class MainActivity extends AppCompatActivity {
                                                    View item,
                                                    int pos,
                                                    long id){
-                        Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
                         todoItem targetItem = ((todoItem) adapter.getItemAtPosition(pos));
-                        intent.putExtra(EDIT_ITEM, targetItem);
-                        intent.putExtra(EDIT_ITEM_POS, pos);
 
+                        // Edit item using another activity
                         // ref: https://developer.android.com/training/basics/intents/result.html
-                        startActivityForResult(intent, EDIT_FORM_REQUEST);
+                        //Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
+                        //intent.putExtra(EDIT_ITEM, targetItem);
+                        //intent.putExtra(EDIT_ITEM_POS, pos);
+                        // startActivityForResult(intent, EDIT_FORM_REQUEST);
+
+                        // Edit item using DialogFragment
+                        showEditDialog(targetItem);
                     }
                 }
         );
@@ -108,6 +113,13 @@ public class MainActivity extends AppCompatActivity {
                 databaseHelper.updateTodo(updatedItem);
             }
         }
+    }
+
+    private void showEditDialog(todoItem item) {
+        FragmentManager fm = getSupportFragmentManager();
+        EditItemDialogFragment editItemDialogFragment = EditItemDialogFragment.newInstance(item);
+        //editItemDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+        editItemDialogFragment.show(fm, "fragment_edit_item");
     }
 
     private void readItems(){
@@ -147,6 +159,23 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (IOException e){
             e.printStackTrace();
+        }
+    }
+
+    // 3. This method is invoked in the activity when the listener is triggered
+    // Access the data result passed to the activity here
+    @Override
+    public void onFinishEditDialog(todoItem updatedItem) {
+        if(updatedItem.id==-1){
+            // add
+            todoItem newItem = databaseHelper.addTodo(updatedItem);
+            itemsAdapter.add(newItem);
+        }
+        else{
+            // update database
+            databaseHelper.updateTodo(updatedItem);
+            items = databaseHelper.getAllTodos();
+            itemsAdapter.notifyDataSetChanged();
         }
     }
 }

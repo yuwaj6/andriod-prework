@@ -138,7 +138,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
             values.put(KEY_TODO_TaskName, item.taskName);
             values.put(KEY_TODO_Pri, "high");
             values.put(KEY_TODO_Status, "todo");
-            values.put(KEY_TODO_DueDate, "2017-01-31"); //todo: need to figure out how to store in datetime
+            values.put(KEY_TODO_DueDate, item.dueDate); //todo: need to figure out how to store in datetime
 
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             long id = db.insertOrThrow(TABLE_TODOS, null, values);
@@ -164,7 +164,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
             values.put(KEY_TODO_TaskName, item.taskName);
             //values.put(KEY_TODO_Pri, item.pri);
             //values.put(KEY_TODO_Status, item.status);
-            //values.put(KEY_TODO_DueDate, item.dueDate.toString()); //todo: need to figure out how to store in datetime
+            values.put(KEY_TODO_DueDate, item.dueDate.toString()); //todo: need to figure out how to store in datetime
 
             // First try to update the items
             int rows = db.update(TABLE_TODOS, values, KEY_TODO_ID + "=" + item.id, null);

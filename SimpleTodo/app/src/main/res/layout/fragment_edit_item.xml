@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:text="Task Name"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:id="@+id/fragment_taskName"
+            android:layout_weight="0.07"
+            android:layout_marginLeft="34dp"
+            android:layout_marginStart="34dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="23dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:text="Due Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView3"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_below="@+id/txt_taskName"
+            android:layout_alignLeft="@+id/txt_taskName"
+            android:layout_alignStart="@+id/txt_taskName"
+            android:layout_alignRight="@+id/fragment_taskName"
+            android:layout_alignEnd="@+id/fragment_taskName" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/txt_taskName"
+            android:layout_weight="0.12"
+            android:layout_below="@+id/fragment_taskName"
+            android:layout_alignLeft="@+id/fragment_taskName"
+            android:layout_alignStart="@+id/fragment_taskName" />
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/datePicker"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginTop="11dp" />
+
+        <Button
+            android:text="SAVE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSave"
+            android:layout_weight="0.07"
+            android:layout_below="@+id/datePicker"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp" />
+
+    </RelativeLayout>
+
+</ScrollView>

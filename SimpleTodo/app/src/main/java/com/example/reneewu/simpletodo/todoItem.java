@@ -19,6 +19,7 @@ public class todoItem implements Serializable {
     public String dueDate;
 
     public todoItem() {
+        id = -1;
     }
 
     public todoItem(String taskName) {

@@ -31,6 +31,11 @@ public class todoItemAdapter extends ArrayAdapter<todoItem> {
         TextView taskName = (TextView) convertView.findViewById(R.id.taskName);
         // Populate the data into the template view using the data object
         taskName.setText(item.taskName);
+
+        // Lookup view for data population
+        TextView dueDate = (TextView) convertView.findViewById(R.id.dueDate);
+        // Populate the data into the template view using the data object
+        dueDate.setText(item.dueDate);
         // Return the completed view to render on screen
         return convertView;
     }
