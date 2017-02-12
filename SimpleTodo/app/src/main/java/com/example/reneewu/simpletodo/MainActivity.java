@@ -60,8 +60,10 @@ public class MainActivity extends AppCompatActivity implements EditItemDialogFra
                                                    View item,
                                                    int pos,
                                                    long id){
-                        databaseHelper.deleteTodo((todoItem) adapter.getItemAtPosition(pos));
-                        items.remove(pos);
+                        todoItem deleteTarget = (todoItem) adapter.getItemAtPosition(pos);
+                        databaseHelper.deleteTodo(deleteTarget);
+                        //items.remove(pos);
+                        itemsAdapter.remove(deleteTarget);
                         itemsAdapter.notifyDataSetChanged();
                         //writeItems();
 
